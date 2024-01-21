@@ -10,13 +10,22 @@ pragma solidity 0.8.22;
  * @dev Implements Chainlink VRFv2
  */
 contract Raffle {
+
+error NotEnoughETHSent();
+
     uint256 private immutable i_entranceFee;
 
     constructor(uint256 entranceFee) {
         i_entranceFee = entranceFee;
     }
 
-    function enterRaffle() public payable {}
+    function enterRaffle() external payable {
+//require (msg.value >=i_entranceFee,"Not Enough Eth Sent!");
+
+if(msg.value<i_entranceFee){
+    revert NotEnoughETHSent();
+}
+    }
 
     function pickWinner() public {}
 
