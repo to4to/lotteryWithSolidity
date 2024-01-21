@@ -11,9 +11,10 @@ pragma solidity 0.8.22;
  */
 contract Raffle {
 
-error NotEnoughETHSent();
+error Raffle__NotEnoughETHSent();
 
     uint256 private immutable i_entranceFee;
+    address payable[] private s_players;
 
     constructor(uint256 entranceFee) {
         i_entranceFee = entranceFee;
@@ -23,7 +24,10 @@ error NotEnoughETHSent();
 //require (msg.value >=i_entranceFee,"Not Enough Eth Sent!");
 
 if(msg.value<i_entranceFee){
-    revert NotEnoughETHSent();
+    revert Raffle__NotEnoughETHSent();
+
+
+    s_players.push(payable(msg.sender));
 }
     }
 
