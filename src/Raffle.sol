@@ -1,6 +1,5 @@
 //SPDX License Identifier: MIT
 
-
 // SPDX-License-Identifier: SEE LICENSE IN LICENSE
 pragma solidity 0.8.22;
 
@@ -11,21 +10,19 @@ pragma solidity 0.8.22;
  * @dev Implements Chainlink VRFv2
  */
 contract Raffle {
+    uint256 private immutable i_entranceFee;
 
-uint256 private immutable i_entranceFee;
-constructor(uint256 entranceFee){
-    i_entranceFee=entranceFee;
-}
-
-    function enterRaffle()  public payable {
-        
+    constructor(uint256 entranceFee) {
+        i_entranceFee = entranceFee;
     }
 
+    function enterRaffle() public payable {}
 
-    function pickWinner() public{
+    function pickWinner() public {}
 
+    /** Getter Function */
+
+    function getEntranceFee() external view returns (uint256) {
+        return i_entranceFee;
     }
-
-
-
 }
