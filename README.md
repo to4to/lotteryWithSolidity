@@ -10,8 +10,11 @@ Going To Write a Lottery Contract.
 ## What I Want To Do
 1. User can enter by paying for Ticket
     1. The Ticket Fee is paid to Winner if Draw
-    
-
+2. After X Period of Time , the lottery will automatically draw a winner
+    2. And this will be done Progammatically
+3. Using ChainLink VRF & ChainLink Automation        
+    1. ChainLink VRF -> Randomness
+    2. Chainlink Automation -> Time Based trigger  
 
 
 
