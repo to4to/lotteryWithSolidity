@@ -4,6 +4,13 @@
 
 ## About
 
+Going To Write a Lottery Contract.
+
+
+## What I Want To Do
+1. User can enter by paying for Ticket
+    1. The Ticket Fee is paid to Winner if Draw
+    
 
 
 
