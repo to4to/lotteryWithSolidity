@@ -28,9 +28,9 @@ event EnteredRaffle(address indexed player);
 
         if (msg.value < i_entranceFee) {
             revert Raffle__NotEnoughETHSent();
-
-            s_players.push(payable(msg.sender));
         }
+         s_players.push(payable(msg.sender));
+            emit EnteredRaffle(msg.sender);
     }
 
     function pickWinner() public {}
