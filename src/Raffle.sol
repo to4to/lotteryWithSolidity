@@ -13,14 +13,16 @@ contract Raffle {
     error Raffle__NotEnoughETHSent();
 
     uint256 private immutable i_entranceFee;
+    uint256 private immutable i_interval;
     address payable[] private s_players;
 
 /** Events */
 event EnteredRaffle(address indexed player);
 
 
-    constructor(uint256 entranceFee) {
+    constructor(uint256 entranceFee,uint256 interval) {
         i_entranceFee = entranceFee;
+        i_interval=interval;
     }
 
     function enterRaffle() external payable {
@@ -33,7 +35,15 @@ event EnteredRaffle(address indexed player);
             emit EnteredRaffle(msg.sender);
     }
 
-    function pickWinner() public {}
+    function pickWinner() external {
+
+
+         
+
+
+
+
+    }
 
     /** Getter Function */
 
