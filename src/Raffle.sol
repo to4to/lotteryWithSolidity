@@ -13,7 +13,9 @@ contract Raffle {
     error Raffle__NotEnoughETHSent();
 
     uint256 private immutable i_entranceFee;
+    /**@dev Duration of the  lottery in seconds */
     uint256 private immutable i_interval;
+    uint256 private s_lastTimeStamp;
     address payable[] private s_players;
 
 /** Events */
@@ -23,6 +25,7 @@ event EnteredRaffle(address indexed player);
     constructor(uint256 entranceFee,uint256 interval) {
         i_entranceFee = entranceFee;
         i_interval=interval;
+        s_lastTimeStamp=block.timestamp;
     }
 
     function enterRaffle() external payable {
@@ -36,7 +39,8 @@ event EnteredRaffle(address indexed player);
     }
 
     function pickWinner() external {
-
+//check to see enough time is passed 
+block.timestamp-s_lastTimeStamp>i_interval;
 
          
 
