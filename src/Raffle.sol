@@ -40,7 +40,9 @@ event EnteredRaffle(address indexed player);
 
     function pickWinner() external {
 //check to see enough time is passed 
-block.timestamp-s_lastTimeStamp>i_interval;
+     if((block.timestamp-s_lastTimeStamp)<=i_interval){
+
+     }
 
          
 
