@@ -18,14 +18,13 @@ contract Raffle {
     uint256 private s_lastTimeStamp;
     address payable[] private s_players;
 
-/** Events */
-event EnteredRaffle(address indexed player);
+    /** Events */
+    event EnteredRaffle(address indexed player);
 
-
-    constructor(uint256 entranceFee,uint256 interval) {
+    constructor(uint256 entranceFee, uint256 interval) {
         i_entranceFee = entranceFee;
-        i_interval=interval;
-        s_lastTimeStamp=block.timestamp;
+        i_interval = interval;
+        s_lastTimeStamp = block.timestamp;
     }
 
     function enterRaffle() external payable {
@@ -34,21 +33,15 @@ event EnteredRaffle(address indexed player);
         if (msg.value < i_entranceFee) {
             revert Raffle__NotEnoughETHSent();
         }
-         s_players.push(payable(msg.sender));
-            emit EnteredRaffle(msg.sender);
+        s_players.push(payable(msg.sender));
+        emit EnteredRaffle(msg.sender);
     }
 
     function pickWinner() external {
-//check to see enough time is passed 
-     if((block.timestamp-s_lastTimeStamp)<=i_interval){
-
-     }
-
-         
-
-
-
-
+        //check to see enough time is passed
+        if ((block.timestamp - s_lastTimeStamp) < i_interval) {
+            revert();
+        }
     }
 
     /** Getter Function */
