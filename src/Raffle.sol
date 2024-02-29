@@ -15,16 +15,25 @@ contract Raffle {
     uint256 private immutable i_entranceFee;
     /**@dev Duration of the  lottery in seconds */
     uint256 private immutable i_interval;
+    uint256  private immutable i_vrfCordinator;
+bytes32    private immutable i_gasLane;
+
+
     uint256 private s_lastTimeStamp;
     address payable[] private s_players;
 
     /** Events */
     event EnteredRaffle(address indexed player);
 
-    constructor(uint256 entranceFee, uint256 interval) {
+
+
+
+    constructor(uint256 entranceFee, uint256 interval,address vrfCordinator,bytes32 gasLane) {
         i_entranceFee = entranceFee;
         i_interval = interval;
         s_lastTimeStamp = block.timestamp;
+        i_vrfCordinator=vrfCordinator;
+        i_gasLane=gasLane;
     }
 
     function enterRaffle() external payable {
@@ -42,6 +51,18 @@ contract Raffle {
         if ((block.timestamp - s_lastTimeStamp) < i_interval) {
             revert();
         }
+
+
+        // 1.Request the RNG
+        // 2. Get the Random Number
+
+       uint256 requestId = i_vrfCordinator.requestRandomWords(
+            i_gasLane,//gasLane=keyHash
+            s_subscriptionId,
+            requestConfirmations,
+            callbackGasLimit,
+            numWords
+        );
     }
 
     /** Getter Function */
