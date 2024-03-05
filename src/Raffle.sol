@@ -11,13 +11,17 @@ pragma solidity 0.8.22;
  */
 contract Raffle {
     error Raffle__NotEnoughETHSent();
+/**State Variable */
+uint256 private constant REQUEST_CONFIRMATIONS=3;
+
+
 
     uint256 private immutable i_entranceFee;
     /**@dev Duration of the  lottery in seconds */
     uint256 private immutable i_interval;
-    uint256  private immutable i_vrfCordinator;
-bytes32    private immutable i_gasLane;
-
+    uint256 private immutable i_vrfCordinator;
+    bytes32 private immutable i_gasLane;
+    uint64 private immutable i_subscriptionId;
 
     uint256 private s_lastTimeStamp;
     address payable[] private s_players;
@@ -25,15 +29,20 @@ bytes32    private immutable i_gasLane;
     /** Events */
     event EnteredRaffle(address indexed player);
 
-
-
-
-    constructor(uint256 entranceFee, uint256 interval,address vrfCordinator,bytes32 gasLane) {
+    constructor(
+        uint256 entranceFee,
+        uint256 interval,
+        address vrfCordinator,
+        bytes32 gasLane,
+        uint64 subscriptionId
+    ) {
         i_entranceFee = entranceFee;
         i_interval = interval;
         s_lastTimeStamp = block.timestamp;
-        i_vrfCordinator=vrfCordinator;
-        i_gasLane=gasLane;
+        i_vrfCordinator = vrfCordinator;
+        i_gasLane = gasLane;
+        i_subscriptionId=subscriptionId;
+        
     }
 
     function enterRaffle() external payable {
@@ -52,13 +61,12 @@ bytes32    private immutable i_gasLane;
             revert();
         }
 
-
         // 1.Request the RNG
         // 2. Get the Random Number
 
-       uint256 requestId = i_vrfCordinator.requestRandomWords(
-            i_gasLane,//gasLane=keyHash
-            s_subscriptionId,
+        uint256 requestId = i_vrfCordinator.requestRandomWords(
+            i_gasLane, //gasLane=keyHash
+           i_subscriptionId,
             requestConfirmations,
             callbackGasLimit,
             numWords
