@@ -22,6 +22,7 @@ uint256 private constant REQUEST_CONFIRMATIONS=3;
     uint256 private immutable i_vrfCordinator;
     bytes32 private immutable i_gasLane;
     uint64 private immutable i_subscriptionId;
+    uint32 private immutable i_callBackGasLimit;
 
     uint256 private s_lastTimeStamp;
     address payable[] private s_players;
@@ -34,7 +35,8 @@ uint256 private constant REQUEST_CONFIRMATIONS=3;
         uint256 interval,
         address vrfCordinator,
         bytes32 gasLane,
-        uint64 subscriptionId
+        uint64 subscriptionId,
+        uint32 callBackGasLimit
     ) {
         i_entranceFee = entranceFee;
         i_interval = interval;
@@ -42,6 +44,7 @@ uint256 private constant REQUEST_CONFIRMATIONS=3;
         i_vrfCordinator = vrfCordinator;
         i_gasLane = gasLane;
         i_subscriptionId=subscriptionId;
+        i_callBackGasLimit=callBackGasLimit;
         
     }
 
@@ -67,7 +70,7 @@ uint256 private constant REQUEST_CONFIRMATIONS=3;
         uint256 requestId = i_vrfCordinator.requestRandomWords(
             i_gasLane, //gasLane=keyHash
            i_subscriptionId,
-            requestConfirmations,
+            REQUEST_CONFIRMATIONS,
             callbackGasLimit,
             numWords
         );
