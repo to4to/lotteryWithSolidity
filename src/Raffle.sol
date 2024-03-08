@@ -1,9 +1,9 @@
 //SPDX License Identifier: MIT
 
 // SPDX-License-Identifier: SEE LICENSE IN LICENSE
-pragma solidity 0.8.22;
+pragma solidity 0.8.21;
 
-import {VRFCoordinatorV2Interface} from "@chainlink/contracts/src/v0.8/interfaces/VRFCoordinatorV2Interface.sol";``
+import {VRFCoordinatorV2Interface} from "@chainlink/contracts/src/v0.8/interfaces/VRFCoordinatorV2Interface.sol";
 
 /**
  * @title  Raffle Contract
@@ -14,18 +14,18 @@ import {VRFCoordinatorV2Interface} from "@chainlink/contracts/src/v0.8/interface
 contract Raffle {
     error Raffle__NotEnoughETHSent();
 /**State Variable */
-uint256 private constant REQUEST_CONFIRMATIONS=3;
+uint16 private constant REQUEST_CONFIRMATIONS=3;
 
 
 
     uint256 private immutable i_entranceFee;
     /**@dev Duration of the  lottery in seconds */
     uint256 private immutable i_interval;
-    uint256 private immutable i_vrfCordinator;
+    VRFCoordinatorV2Interface private immutable i_vrfCordinator;
     bytes32 private immutable i_gasLane;
     uint64 private immutable i_subscriptionId;
     uint32 private immutable i_callBackGasLimit;
-    uint private constant NUM_WORDS=1;
+    uint32 private constant NUM_WORDS=1;
 
     uint256 private s_lastTimeStamp;
     address payable[] private s_players;
@@ -44,7 +44,7 @@ uint256 private constant REQUEST_CONFIRMATIONS=3;
         i_entranceFee = entranceFee;
         i_interval = interval;
         s_lastTimeStamp = block.timestamp;
-        i_vrfCordinator = vrfCordinator;
+        i_vrfCordinator = VRFCoordinatorV2Interface(vrfCordinator);
         i_gasLane = gasLane;
         i_subscriptionId=subscriptionId;
         i_callBackGasLimit=callBackGasLimit;
