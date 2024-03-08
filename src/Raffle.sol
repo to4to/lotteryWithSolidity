@@ -23,6 +23,7 @@ uint256 private constant REQUEST_CONFIRMATIONS=3;
     bytes32 private immutable i_gasLane;
     uint64 private immutable i_subscriptionId;
     uint32 private immutable i_callBackGasLimit;
+    uint private constant NUM_WORDS=1;
 
     uint256 private s_lastTimeStamp;
     address payable[] private s_players;
@@ -71,8 +72,8 @@ uint256 private constant REQUEST_CONFIRMATIONS=3;
             i_gasLane, //gasLane=keyHash
            i_subscriptionId,
             REQUEST_CONFIRMATIONS,
-            callbackGasLimit,
-            numWords
+            i_callBackGasLimit,
+            NUM_WORDS
         );
     }
 
