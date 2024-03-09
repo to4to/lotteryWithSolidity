@@ -13,10 +13,8 @@ import {VRFCoordinatorV2Interface} from "@chainlink/contracts/src/v0.8/interface
  */
 contract Raffle {
     error Raffle__NotEnoughETHSent();
-/**State Variable */
-uint16 private constant REQUEST_CONFIRMATIONS=3;
-
-
+    /**State Variable */
+    uint16 private constant REQUEST_CONFIRMATIONS = 3;
 
     uint256 private immutable i_entranceFee;
     /**@dev Duration of the  lottery in seconds */
@@ -25,7 +23,7 @@ uint16 private constant REQUEST_CONFIRMATIONS=3;
     bytes32 private immutable i_gasLane;
     uint64 private immutable i_subscriptionId;
     uint32 private immutable i_callBackGasLimit;
-    uint32 private constant NUM_WORDS=1;
+    uint32 private constant NUM_WORDS = 1;
 
     uint256 private s_lastTimeStamp;
     address payable[] private s_players;
@@ -46,9 +44,8 @@ uint16 private constant REQUEST_CONFIRMATIONS=3;
         s_lastTimeStamp = block.timestamp;
         i_vrfCordinator = VRFCoordinatorV2Interface(vrfCordinator);
         i_gasLane = gasLane;
-        i_subscriptionId=subscriptionId;
-        i_callBackGasLimit=callBackGasLimit;
-        
+        i_subscriptionId = subscriptionId;
+        i_callBackGasLimit = callBackGasLimit;
     }
 
     function enterRaffle() external payable {
@@ -72,7 +69,7 @@ uint16 private constant REQUEST_CONFIRMATIONS=3;
 
         uint256 requestId = i_vrfCordinator.requestRandomWords(
             i_gasLane, //gasLane=keyHash
-           i_subscriptionId,
+            i_subscriptionId,
             REQUEST_CONFIRMATIONS,
             i_callBackGasLimit,
             NUM_WORDS
