@@ -76,6 +76,12 @@ contract Raffle {
         );
     }
 
+    function fulfillRandomWords(){
+
+
+
+        
+    }
     /** Getter Function */
 
     function getEntranceFee() external view returns (uint256) {
