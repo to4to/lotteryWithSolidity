@@ -76,7 +76,10 @@ contract Raffle {
         );
     }
 
-    function fulfillRandomWords(){
+    function fulfillRandomWords(
+        uint256 requestId,
+        uint256[] memory randomWords
+    ){
 
 
 
