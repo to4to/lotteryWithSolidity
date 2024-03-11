@@ -11,7 +11,7 @@ import {VRFConsumerBaseV2} from "@chainlink/contracts/src/v0.8/vrf/VRFConsumerBa
  * @notice CReating A Raffle i.e. A Lottery Contract
  * @dev Implements Chainlink VRFv2
  */
-contract Raffle {
+contract Raffle is VRFConsumerBaseV2 {
     error Raffle__NotEnoughETHSent();
     /**State Variable */
     uint16 private constant REQUEST_CONFIRMATIONS = 3;
