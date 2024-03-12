@@ -81,7 +81,7 @@ contract Raffle is VRFConsumerBaseV2 {
         uint256[] memory randomWords
     ) internal override{
 
-
+uint256 indexOfWinner=randomWords[0] % s_players.length;
 
         
     }
