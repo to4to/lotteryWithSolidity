@@ -84,6 +84,7 @@ contract Raffle is VRFConsumerBaseV2 {
 uint256 indexOfWinner=randomWords[0] % s_players.length;
 address payable winner=s_players[indexOfWinner];
 
+
         
     }
     /** Getter Function */
