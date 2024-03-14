@@ -27,6 +27,7 @@ contract Raffle is VRFConsumerBaseV2 {
 
     uint256 private s_lastTimeStamp;
     address payable[] private s_players;
+    address private s_recentWinner;
 
     /** Events */
     event EnteredRaffle(address indexed player);
