@@ -86,6 +86,10 @@ uint256 indexOfWinner=randomWords[0] % s_players.length;
 address payable winner=s_players[indexOfWinner];
 s_recentWinner=winner;
 (bool success, )=winner.call{value:address(this).balance}("");
+if (!success){
+
+    revert();
+}
 
         
     }
