@@ -13,6 +13,7 @@ import {VRFConsumerBaseV2} from "@chainlink/contracts/src/v0.8/vrf/VRFConsumerBa
  */
 contract Raffle is VRFConsumerBaseV2 {
     error Raffle__NotEnoughETHSent();
+    error Raffle__TransferFailed();
     /**State Variable */
     uint16 private constant REQUEST_CONFIRMATIONS = 3;
 
@@ -88,7 +89,7 @@ s_recentWinner=winner;
 (bool success, )=winner.call{value:address(this).balance}("");
 if (!success){
 
-    revert();
+    revert Raffle__TransferFailed();
 }
 
         
