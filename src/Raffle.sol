@@ -14,6 +14,18 @@ import {VRFConsumerBaseV2} from "@chainlink/contracts/src/v0.8/vrf/VRFConsumerBa
 contract Raffle is VRFConsumerBaseV2 {
     error Raffle__NotEnoughETHSent();
     error Raffle__TransferFailed();
+
+/* Type Declaration */
+
+
+enum RaffleState {
+    OPEN,
+    CLOSED
+}
+
+
+
+
     /**State Variable */
     uint16 private constant REQUEST_CONFIRMATIONS = 3;
 
