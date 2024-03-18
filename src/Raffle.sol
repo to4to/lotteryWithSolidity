@@ -61,6 +61,7 @@ enum RaffleState {
         i_gasLane = gasLane;
         i_subscriptionId = subscriptionId;
         i_callBackGasLimit = callBackGasLimit;
+        s_raffleState=RaffleState.OPEN;
     }
 
     function enterRaffle() external payable {
