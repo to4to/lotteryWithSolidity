@@ -19,8 +19,8 @@ contract Raffle is VRFConsumerBaseV2 {
 
 
 enum RaffleState {
-    OPEN,
-    CALCULATING
+    OPEN,        // 0
+    CALCULATING // 1
 }
 
 
@@ -37,6 +37,7 @@ enum RaffleState {
     uint64 private immutable i_subscriptionId;
     uint32 private immutable i_callBackGasLimit;
     uint32 private constant NUM_WORDS = 1;
+    RaffleState private s_raffleState;
 
     uint256 private s_lastTimeStamp;
     address payable[] private s_players;
