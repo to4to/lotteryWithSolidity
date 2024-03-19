@@ -14,7 +14,7 @@ import {VRFConsumerBaseV2} from "@chainlink/contracts/src/v0.8/vrf/VRFConsumerBa
 contract Raffle is VRFConsumerBaseV2 {
     error Raffle__NotEnoughETHSent();
     error Raffle__TransferFailed();
-
+    error Raffle__RaffleNotOpen(); 
 /* Type Declaration */
 
 
@@ -62,6 +62,9 @@ enum RaffleState {
         i_subscriptionId = subscriptionId;
         i_callBackGasLimit = callBackGasLimit;
         s_raffleState=RaffleState.OPEN;
+
+s_lastTimeStamp=block.timestamp;
+
     }
 
     function enterRaffle() external payable {
@@ -70,6 +73,11 @@ enum RaffleState {
         if (msg.value < i_entranceFee) {
             revert Raffle__NotEnoughETHSent();
         }
+        if(s_raffleState !=  RaffleState.OPEN){
+revert Raffle__RaffleNotOpen;//"Raffle is not open!"
+
+        }
+
         s_players.push(payable(msg.sender));
         emit EnteredRaffle(msg.sender);
     }
