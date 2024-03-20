@@ -5,6 +5,7 @@ pragma solidity 0.8.21;
 
 import {VRFCoordinatorV2Interface} from "@chainlink/contracts/src/v0.8/interfaces/VRFCoordinatorV2Interface.sol";
 import {VRFConsumerBaseV2} from "@chainlink/contracts/src/v0.8/vrf/VRFConsumerBaseV2.sol";
+
 /**
  * @title  Raffle Contract
  * @author github.com/to4to
@@ -14,17 +15,13 @@ import {VRFConsumerBaseV2} from "@chainlink/contracts/src/v0.8/vrf/VRFConsumerBa
 contract Raffle is VRFConsumerBaseV2 {
     error Raffle__NotEnoughETHSent();
     error Raffle__TransferFailed();
-    error Raffle__RaffleNotOpen(); 
-/* Type Declaration */
+    error Raffle__RaffleNotOpen();
+    /* Type Declaration */
 
-
-enum RaffleState {
-    OPEN,        // 0
-    CALCULATING // 1
-}
-
-
-
+    enum RaffleState {
+        OPEN, // 0
+        CALCULATING // 1
+    }
 
     /**State Variable */
     uint16 private constant REQUEST_CONFIRMATIONS = 3;
@@ -61,10 +58,9 @@ enum RaffleState {
         i_gasLane = gasLane;
         i_subscriptionId = subscriptionId;
         i_callBackGasLimit = callBackGasLimit;
-        s_raffleState=RaffleState.OPEN;
+        s_raffleState = RaffleState.OPEN;
 
-s_lastTimeStamp=block.timestamp;
-
+        s_lastTimeStamp = block.timestamp;
     }
 
     function enterRaffle() external payable {
@@ -73,9 +69,8 @@ s_lastTimeStamp=block.timestamp;
         if (msg.value < i_entranceFee) {
             revert Raffle__NotEnoughETHSent();
         }
-        if(s_raffleState !=  RaffleState.OPEN){
-revert Raffle__RaffleNotOpen;//"Raffle is not open!"
-
+        if (s_raffleState != RaffleState.OPEN) {
+            revert Raffle__RaffleNotOpen; //"Raffle is not open!"
         }
 
         s_players.push(payable(msg.sender));
@@ -103,19 +98,17 @@ revert Raffle__RaffleNotOpen;//"Raffle is not open!"
     function fulfillRandomWords(
         uint256 requestId,
         uint256[] memory randomWords
-    ) internal override{
-
-uint256 indexOfWinner=randomWords[0] % s_players.length;
-address payable winner=s_players[indexOfWinner];
-s_recentWinner=winner;
-(bool success, )=winner.call{value:address(this).balance}("");
-if (!success){
-
-    revert Raffle__TransferFailed();
-}
-
-        
+    ) internal override {
+        uint256 indexOfWinner = randomWords[0] % s_players.length;
+        address payable winner = s_players[indexOfWinner];
+        s_recentWinner = winner;
+        s_raffleState=RaffleState.OPEN;
+        (bool success, ) = winner.call{value: address(this).balance}("");
+        if (!success) {
+            revert Raffle__TransferFailed();
+        }
     }
+
     /** Getter Function */
 
     function getEntranceFee() external view returns (uint256) {
