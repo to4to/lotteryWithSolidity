@@ -42,7 +42,7 @@ contract Raffle is VRFConsumerBaseV2 {
 
     /** Events */
     event EnteredRaffle(address indexed player);
-    event WinnerPicked(address indexed winner);
+    event PickedWinner(address indexed winner);
 
     constructor(
         uint256 entranceFee,
@@ -112,7 +112,7 @@ contract Raffle is VRFConsumerBaseV2 {
             revert Raffle__TransferFailed();
         }
 
-        emit WinnerPicked(winner);
+        emit PickedWinner(winner);
     }
 
     /** Getter Function */
