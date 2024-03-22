@@ -71,7 +71,7 @@ contract Raffle is VRFConsumerBaseV2 {
             revert Raffle__NotEnoughETHSent();
         }
         if (s_raffleState != RaffleState.OPEN) {
-            revert Raffle__RaffleNotOpen; //"Raffle is not open!"
+            revert Raffle__RaffleNotOpen(); //"Raffle is not open!"
         }
 
         s_players.push(payable(msg.sender));
